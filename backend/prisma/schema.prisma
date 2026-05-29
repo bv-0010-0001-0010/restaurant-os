@@ -1,0 +1,68 @@
+// Restaurant OS — database schema
+// This is the FOUNDATION milestone: users, roles, authentication.
+// Later milestones (roster, clock-in, payroll, reservations, tables) will
+// add their own models in this file and create new migrations.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Access control ──────────────────────────────────────────────
+// Role controls WHAT a user can do (their permissions).
+enum Role {
+  OWNER // full access to everything, including financials
+  MANAGER // runs day-to-day: rosters, approvals, reservations
+  KITCHEN // back of house — sees KDS, own roster, own timesheet
+  FLOOR // front of house: bar + waitstaff — tables, reservations, own roster
+}
+
+// Position controls operational details like pay rate, shown alongside role.
+// A FLOOR user can be either BAR or WAIT; KITCHEN users are KITCHEN.
+enum Position {
+  KITCHEN
+  BAR
+  WAIT
+  MANAGEMENT
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  role         Role     @default(FLOOR)
+  position     Position @default(WAIT)
+  phone        String?
+  // Hourly base rate in cents (avoids floating-point money bugs).
+  // Used later by the payroll module.
+  hourlyRateCents Int     @default(0)
+  isActive        Boolean @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  auditLogs AuditLog[]
+
+  @@index([role])
+  @@index([isActive])
+}
+
+// Lightweight audit trail. Every privileged action (creating a user,
+// approving a timesheet, editing payroll) gets a row here.
+model AuditLog {
+  id        String   @id @default(cuid())
+  actor     User     @relation(fields: [actorId], references: [id])
+  actorId   String
+  action    String // e.g. "user.create", "user.deactivate"
+  target    String? // id of the affected entity
+  meta      Json? // any extra context
+  createdAt DateTime @default(now())
+
+  @@index([actorId])
+  @@index([createdAt])
+}
