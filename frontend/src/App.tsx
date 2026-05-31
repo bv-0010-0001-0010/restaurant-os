@@ -5,6 +5,8 @@ import { AppLayout } from './components/AppLayout';
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { RosterPage } from './pages/RosterPage';
+import { ClockPage } from './pages/ClockPage';
+import { TimesheetsPage } from './pages/TimesheetsPage';
 import { StaffPage } from './pages/StaffPage';
 import { ModulePlaceholder } from './pages/ModulePlaceholder';
 
@@ -24,13 +26,13 @@ export default function App() {
           >
             <Route path="/" element={<DashboardPage />} />
             <Route path="/roster" element={<RosterPage />} />
+            <Route path="/clock" element={<ClockPage />} />
             <Route
-              path="/clock"
+              path="/timesheets"
               element={
-                <ModulePlaceholder
-                  title="Clock in / out"
-                  description="Photo clock-in with timestamps."
-                />
+                <ProtectedRoute roles={['OWNER', 'MANAGER']}>
+                  <TimesheetsPage />
+                </ProtectedRoute>
               }
             />
             <Route

@@ -30,6 +30,12 @@ export const NAV_ITEMS: NavItem[] = [
     roles: ['OWNER', 'MANAGER', 'KITCHEN', 'FLOOR'],
   },
   {
+    to: '/timesheets',
+    label: 'Timesheets',
+    icon: '◴',
+    roles: ['OWNER', 'MANAGER'],
+  },
+  {
     to: '/reservations',
     label: 'Reservations',
     icon: '✸',

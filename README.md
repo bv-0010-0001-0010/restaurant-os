@@ -151,6 +151,18 @@ restaurant-os/
 
 ---
 
+## Clock-in photos
+
+The clock-in module uses the browser camera (`getUserMedia`). Browsers only
+allow camera access on `https://` or on `localhost`, so it works in local dev
+out of the box. When you deploy, the site must be served over HTTPS or the
+camera won't start.
+
+In local dev, captured photos are saved to `backend/uploads/` and served at
+`/uploads/...`. That folder is gitignored, so photos never get committed. When
+you move to production, swap `savePhoto` in `backend/src/lib/photoStorage.ts`
+to upload to S3 (or similar) and return the object URL — nothing else changes.
+
 ## How role-based access works
 
 There are two layers, and both matter:
@@ -186,7 +198,7 @@ docker compose down -v     # stop and DELETE all data
 
 - [x] **Foundation** — auth, roles, user management, dashboard shell
 - [x] **Roster management** — weekly grid, draft/publish, conflict detection
-- [ ] Photo clock-in / out
+- [x] **Photo clock-in / out** — camera capture, shift matching, timesheets
 - [ ] Payroll engine
 - [ ] Reservations + guest profiles
 - [ ] Live table floor plan

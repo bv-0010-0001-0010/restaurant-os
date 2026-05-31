@@ -48,6 +48,7 @@ model User {
 
   auditLogs AuditLog[]
   shifts    Shift[]
+  timeEntries TimeEntry[]
 
   @@index([role])
   @@index([isActive])
@@ -72,8 +73,35 @@ model Shift {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  timeEntries TimeEntry[]
+
   @@index([userId])
   @@index([startsAt])
+}
+
+// ── Clock in / out ──────────────────────────────────────────────
+// One row per clock-in. clockOut is null until the staff member clocks
+// out, so an open entry means "currently on shift". Photos are stored as
+// file paths (local dev) — in production these point at object storage.
+model TimeEntry {
+  id            String    @id @default(cuid())
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  // The rostered shift this clock-in is matched to, if one was scheduled.
+  shift         Shift?    @relation(fields: [shiftId], references: [id], onDelete: SetNull)
+  shiftId       String?
+  clockIn       DateTime  @default(now())
+  clockOut      DateTime?
+  clockInPhoto  String // path/url to the photo taken at clock-in
+  clockOutPhoto String?
+  // Captured at clock-in by comparing to the matched shift's start time.
+  // Positive = minutes late, negative = minutes early, null = no shift.
+  lateByMinutes Int?
+  createdAt     DateTime  @default(now())
+
+  @@index([userId])
+  @@index([clockIn])
+  @@index([clockOut])
 }
 
 // Lightweight audit trail. Every privileged action (creating a user,
