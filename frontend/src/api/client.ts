@@ -32,6 +32,9 @@ async function request<T>(
     body: body ? JSON.stringify(body) : undefined,
   });
 
+  // 204 No Content (e.g. after DELETE) has no body to parse.
+  if (res.status === 204) return undefined as T;
+
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
     throw new Error(data.error ?? `Request failed (${res.status})`);
@@ -43,4 +46,5 @@ export const api = {
   get: <T>(path: string) => request<T>('GET', path),
   post: <T>(path: string, body?: unknown) => request<T>('POST', path, body),
   patch: <T>(path: string, body?: unknown) => request<T>('PATCH', path, body),
+  del: <T>(path: string) => request<T>('DELETE', path),
 };

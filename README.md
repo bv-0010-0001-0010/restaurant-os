@@ -185,7 +185,7 @@ docker compose down -v     # stop and DELETE all data
 ## Roadmap
 
 - [x] **Foundation** — auth, roles, user management, dashboard shell
-- [ ] Roster management
+- [x] **Roster management** — weekly grid, draft/publish, conflict detection
 - [ ] Photo clock-in / out
 - [ ] Payroll engine
 - [ ] Reservations + guest profiles

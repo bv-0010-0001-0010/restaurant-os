@@ -4,6 +4,7 @@ import { ProtectedRoute } from './auth/ProtectedRoute';
 import { AppLayout } from './components/AppLayout';
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { RosterPage } from './pages/RosterPage';
 import { StaffPage } from './pages/StaffPage';
 import { ModulePlaceholder } from './pages/ModulePlaceholder';
 
@@ -22,15 +23,7 @@ export default function App() {
             }
           >
             <Route path="/" element={<DashboardPage />} />
-            <Route
-              path="/roster"
-              element={
-                <ModulePlaceholder
-                  title="Roster"
-                  description="Build and manage shift schedules."
-                />
-              }
-            />
+            <Route path="/roster" element={<RosterPage />} />
             <Route
               path="/clock"
               element={

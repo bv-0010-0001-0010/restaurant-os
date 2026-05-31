@@ -47,9 +47,33 @@ model User {
   updatedAt       DateTime @updatedAt
 
   auditLogs AuditLog[]
+  shifts    Shift[]
 
   @@index([role])
   @@index([isActive])
+}
+
+// ── Roster ──────────────────────────────────────────────────────
+// A scheduled shift for one staff member. Times are stored as full
+// UTC datetimes; the frontend renders them in local time.
+model Shift {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  startsAt  DateTime
+  endsAt    DateTime
+  // Where this shift is worked. Defaults from the user's position but can
+  // be overridden (e.g. a waiter covering the bar for one shift).
+  position  Position
+  notes     String?
+  // Draft shifts are only visible to managers. Publishing makes the whole
+  // week visible to staff.
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([startsAt])
 }
 
 // Lightweight audit trail. Every privileged action (creating a user,

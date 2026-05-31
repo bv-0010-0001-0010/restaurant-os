@@ -4,6 +4,7 @@ import cors from 'cors';
 import { config } from './config/index.js';
 import { authRouter } from './routes/auth.js';
 import { usersRouter } from './routes/users.js';
+import { shiftsRouter } from './routes/shifts.js';
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get('/api/health', (_req, res) => {
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/shifts', shiftsRouter);
 
 // 404 for anything else under /api
 app.use('/api', (_req, res) => {
