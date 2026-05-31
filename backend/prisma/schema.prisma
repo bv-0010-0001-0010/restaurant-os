@@ -49,6 +49,7 @@ model User {
   auditLogs AuditLog[]
   shifts    Shift[]
   timeEntries TimeEntry[]
+  payslips    Payslip[]
 
   @@index([role])
   @@index([isActive])
@@ -117,4 +118,93 @@ model AuditLog {
 
   @@index([actorId])
   @@index([createdAt])
+}
+
+// ── Payroll ─────────────────────────────────────────────────────
+// A pay run covers a date range and freezes a set of payslips so the
+// numbers stay reproducible even if clock-ins are edited later.
+//
+// IMPORTANT: tax and super here use simplified flat rates (see payroll.ts).
+// They are ESTIMATES, not compliant Australian payroll figures. Verify
+// against the relevant Fair Work award before using for real payments.
+model PayRun {
+  id           String    @id @default(cuid())
+  periodStart  DateTime
+  periodEnd    DateTime
+  // Flat rates captured at run time so historical runs don't change when
+  // you later adjust the defaults.
+  taxRatePct   Float
+  superRatePct Float
+  createdAt    DateTime  @default(now())
+
+  payslips Payslip[]
+
+  @@index([periodStart])
+}
+
+model Payslip {
+  id             String  @id @default(cuid())
+  payRun         PayRun  @relation(fields: [payRunId], references: [id], onDelete: Cascade)
+  payRunId       String
+  user           User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  // All money stored in cents to avoid floating-point errors.
+  hoursWorked    Float
+  hourlyRateCents Int
+  grossCents     Int
+  taxCents       Int
+  superCents     Int
+  netCents       Int
+
+  @@index([payRunId])
+  @@index([userId])
+}
+
+// ── Reservations ────────────────────────────────────────────────
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  SEATED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+// A guest is a person who books, kept separate from staff Users. One guest
+// can have many reservations, which gives us their visit history.
+model Guest {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  phone       String?
+  email       String?
+  // Allergies / dietary requirements, surfaced on every booking.
+  dietaryNotes String?
+  // Free-form notes ("regular", "prefers booth", VIP, etc.).
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  reservations Reservation[]
+
+  @@index([lastName])
+  @@index([phone])
+}
+
+model Reservation {
+  id        String            @id @default(cuid())
+  guest     Guest             @relation(fields: [guestId], references: [id], onDelete: Cascade)
+  guestId   String
+  // When the party is due to arrive, and how many people.
+  startsAt  DateTime
+  partySize Int
+  status    ReservationStatus @default(PENDING)
+  // Per-booking notes (occasion, special requests).
+  notes     String?
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@index([startsAt])
+  @@index([status])
+  @@index([guestId])
 }

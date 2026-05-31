@@ -7,6 +7,9 @@ import { DashboardPage } from './pages/DashboardPage';
 import { RosterPage } from './pages/RosterPage';
 import { ClockPage } from './pages/ClockPage';
 import { TimesheetsPage } from './pages/TimesheetsPage';
+import { PayrollPage } from './pages/PayrollPage';
+import { PayslipsPage } from './pages/PayslipsPage';
+import { ReservationsPage } from './pages/ReservationsPage';
 import { StaffPage } from './pages/StaffPage';
 import { ModulePlaceholder } from './pages/ModulePlaceholder';
 
@@ -39,10 +42,7 @@ export default function App() {
               path="/reservations"
               element={
                 <ProtectedRoute roles={['OWNER', 'MANAGER', 'FLOOR']}>
-                  <ModulePlaceholder
-                    title="Reservations"
-                    description="Bookings, waitlist and guest profiles."
-                  />
+                  <ReservationsPage />
                 </ProtectedRoute>
               }
             />
@@ -59,10 +59,15 @@ export default function App() {
               path="/payroll"
               element={
                 <ProtectedRoute roles={['OWNER', 'MANAGER']}>
-                  <ModulePlaceholder
-                    title="Payroll"
-                    description="Hours, pay rates and payslips."
-                  />
+                  <PayrollPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/payslips"
+              element={
+                <ProtectedRoute roles={['KITCHEN', 'FLOOR']}>
+                  <PayslipsPage />
                 </ProtectedRoute>
               }
             />

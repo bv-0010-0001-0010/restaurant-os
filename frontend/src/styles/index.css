@@ -862,3 +862,443 @@ tr:last-child td {
   border-radius: var(--radius);
   transform: scaleX(-1);
 }
+
+/* ── Payroll ───────────────────────────────────────── */
+.notice {
+  background: #fdf4e3;
+  border: 1px solid #f0dcb0;
+  color: #8a6411;
+  font-size: 13.5px;
+  line-height: 1.6;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+}
+
+.success-box {
+  background: #e8ede2;
+  border: 1px solid #cdd9c2;
+  color: var(--ok);
+  font-size: 14px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+
+.pay-controls {
+  padding: 20px;
+}
+
+.pay-control-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.pay-control-row .field {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 130px;
+}
+
+.pay-control-row input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  font-size: 15px;
+}
+
+.pay-control-row input:focus {
+  outline: none;
+  border-color: var(--terracotta);
+  box-shadow: 0 0 0 3px rgba(192, 87, 46, 0.12);
+}
+
+.pay-totals td {
+  border-top: 2px solid var(--line);
+  font-weight: 600;
+  color: var(--espresso);
+  background: #f4ede0;
+}
+
+.pay-commit-row {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.muted-note {
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  font-style: italic;
+}
+
+/* ── Payslips (staff) ──────────────────────────────── */
+.payslip-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.payslip-card {
+  background: var(--cream-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.payslip-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 18px;
+  background: #f4ede0;
+  border-bottom: 1px solid var(--line);
+}
+
+.payslip-period {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--espresso);
+}
+
+.payslip-net {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ok);
+}
+
+.payslip-rows {
+  padding: 14px 18px;
+}
+
+.payslip-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 7px 0;
+  color: var(--ink);
+}
+
+.payslip-row span:first-child {
+  color: var(--ink-soft);
+}
+
+.payslip-net-row {
+  border-top: 1px solid var(--line);
+  margin-top: 4px;
+  padding-top: 11px;
+  font-weight: 600;
+  color: var(--espresso);
+}
+
+.payslip-net-row span:first-child {
+  color: var(--espresso);
+}
+
+.payslip-super {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  border-top: 1px dashed var(--line);
+  margin-top: 6px;
+  padding-top: 10px;
+}
+
+.payslip-super span:first-child {
+  color: var(--ink-soft) !important;
+}
+
+/* ── Reservations ──────────────────────────────────── */
+.date-pick {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--cream-card);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.cover-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cover-date {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--espresso);
+  margin-right: 4px;
+}
+
+.booking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.booking-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--cream-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+}
+
+.booking-time {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--espresso);
+  width: 64px;
+  flex-shrink: 0;
+}
+
+.booking-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.booking-guest {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--espresso);
+  cursor: pointer;
+  text-align: left;
+}
+
+.booking-guest:hover {
+  color: var(--terracotta);
+  text-decoration: underline;
+}
+
+.booking-meta {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.diet-flag {
+  color: var(--terracotta-dark);
+  background: #f7e7df;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.booking-note {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-top: 3px;
+}
+
+.booking-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-sm {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+.danger-text {
+  color: var(--danger);
+}
+
+.status-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.st-pending { background: #fdf0d8; color: #8a6411; }
+.st-confirmed { background: #e2ebf1; color: #2d5670; }
+.st-seated { background: #e8ede2; color: #4f7a52; }
+.st-completed { background: #efe7da; color: #6f655d; }
+.st-cancelled { background: #f1eae8; color: #9a8d88; }
+.st-noshow { background: #fae9e6; color: var(--danger); }
+
+/* Segmented toggle (new vs existing guest) */
+.seg-toggle {
+  display: flex;
+  background: #efe7da;
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 18px;
+}
+
+.seg {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.seg.active {
+  background: var(--cream-card);
+  color: var(--espresso);
+  box-shadow: 0 1px 2px rgba(43, 33, 28, 0.08);
+}
+
+/* Guest search results */
+.guest-results {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.guest-result {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  background: var(--cream-card);
+  padding: 10px 14px;
+  font-size: 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.guest-result:last-child { border-bottom: none; }
+.guest-result:hover { background: #f1e9dc; }
+
+.guest-result-phone { color: var(--ink-soft); font-size: 13px; }
+
+.guest-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #e8ede2;
+  color: var(--espresso);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.guest-pill-x {
+  border: none;
+  background: none;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+
+.editing-guest {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--espresso);
+  margin-bottom: 16px;
+}
+
+/* ── Guest drawer ──────────────────────────────────── */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 33, 28, 0.4);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 60;
+}
+
+.drawer {
+  width: 100%;
+  max-width: 420px;
+  background: var(--cream);
+  height: 100%;
+  padding: 28px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.drawer-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.drawer-name {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--espresso);
+  margin-bottom: 4px;
+}
+
+.drawer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+
+.drawer-stat {
+  margin-bottom: 20px;
+}
+
+.drawer-section {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--espresso);
+  margin: 28px 0 12px;
+}
+
+.visit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.visit-row {
+  display: flex;
+  justify-content: space-between;
+  background: var(--cream-card);
+  padding: 11px 14px;
+  font-size: 13.5px;
+}
+
+.visit-party { color: var(--ink-soft); }
+.visit-status { color: var(--espresso); font-weight: 500; }

@@ -106,6 +106,65 @@ async function main() {
     console.log(`  seeded ${sampleShifts.length} sample shifts`);
   }
 
+  // Sample guests + bookings for today so the reservations page isn't empty.
+  const existingGuests = await prisma.guest.count();
+  if (existingGuests === 0) {
+    const guestData = [
+      {
+        firstName: 'Aanya',
+        lastName: 'Sharma',
+        phone: '0412 345 678',
+        dietaryNotes: 'Nut allergy',
+      },
+      { firstName: 'Tom', lastName: 'Nguyen', phone: '0423 456 789' },
+      {
+        firstName: 'Priya',
+        lastName: 'Patel',
+        phone: '0434 567 890',
+        notes: 'Regular — prefers booth',
+      },
+    ];
+
+    const guests = [];
+    for (const g of guestData) {
+      guests.push(await prisma.guest.create({ data: g }));
+    }
+
+    function bookingAt(hour: number, minute: number) {
+      const d = new Date();
+      d.setHours(hour, minute, 0, 0);
+      return d;
+    }
+
+    await prisma.reservation.create({
+      data: {
+        guestId: guests[0].id,
+        startsAt: bookingAt(18, 30),
+        partySize: 4,
+        status: 'CONFIRMED',
+        notes: 'Birthday',
+      },
+    });
+    await prisma.reservation.create({
+      data: {
+        guestId: guests[1].id,
+        startsAt: bookingAt(19, 0),
+        partySize: 2,
+        status: 'PENDING',
+      },
+    });
+    await prisma.reservation.create({
+      data: {
+        guestId: guests[2].id,
+        startsAt: bookingAt(20, 0),
+        partySize: 6,
+        status: 'CONFIRMED',
+        notes: 'Window table requested',
+      },
+    });
+    console.log(`  seeded ${guests.length} guests + 3 bookings for today`);
+  }
+
   console.log(`\nAll seed users share the password: ${PASSWORD}`);
 }
 

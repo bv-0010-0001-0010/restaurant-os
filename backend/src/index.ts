@@ -7,6 +7,9 @@ import { authRouter } from './routes/auth.js';
 import { usersRouter } from './routes/users.js';
 import { shiftsRouter } from './routes/shifts.js';
 import { timeRouter } from './routes/time.js';
+import { payrollRouter } from './routes/payroll.js';
+import { guestsRouter } from './routes/guests.js';
+import { reservationsRouter } from './routes/reservations.js';
 
 const app = express();
 
@@ -26,6 +29,9 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/shifts', shiftsRouter);
 app.use('/api/time', timeRouter);
+app.use('/api/payroll', payrollRouter);
+app.use('/api/guests', guestsRouter);
+app.use('/api/reservations', reservationsRouter);
 
 // 404 for anything else under /api
 app.use('/api', (_req, res) => {

@@ -9,6 +9,7 @@ const MODULE_DESC: Record<string, string> = {
   '/reservations': 'Bookings, waitlist and guest profiles.',
   '/tables': 'Live floor plan and table status.',
   '/payroll': 'Hours, pay rates and payslips.',
+  '/payslips': 'View your pay history.',
   '/reports': 'Sales and reports from Square.',
   '/staff': 'Add and manage team members.',
 };

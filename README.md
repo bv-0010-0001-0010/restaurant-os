@@ -199,8 +199,8 @@ docker compose down -v     # stop and DELETE all data
 - [x] **Foundation** — auth, roles, user management, dashboard shell
 - [x] **Roster management** — weekly grid, draft/publish, conflict detection
 - [x] **Photo clock-in / out** — camera capture, shift matching, timesheets
-- [ ] Payroll engine
-- [ ] Reservations + guest profiles
+- [x] **Payroll** — pay runs from clock-ins, payslips (simplified tax/super)
+- [x] **Reservations** — day view, booking lifecycle, guest profiles
 - [ ] Live table floor plan
 - [ ] Square reporting integration
 - [ ] React Native mobile app
